@@ -20,7 +20,8 @@ services:
     container_name: "mysql"
     restart: always
     environment:
-      MYSQL_DATABASE: root
-      MYSQL_ROOT_PASSWORD: root
+      - MYSQL_DATABASE=cake_cms
+      - MYSQL_USER=cakephp
+      - MYSQL_ROOT_PASSWORD=root
     ports:
       - 13306:3306
