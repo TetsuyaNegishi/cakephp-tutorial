@@ -63,11 +63,29 @@ class AppController extends Controller
         ]);
 
         $this->Auth->allow(['display', 'view', 'index']);
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+    }
+
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+        if (in_array($action, ['add', 'tags'])) {
+            return true;
+        }
+
+        $slug = $this->request->getParam('pass.0');
+        if (!$slug) {
+            return false;
+        }
+
+        $article = $this->Articles->findBySlug($slug)->first();
+
+        return $article->user_id === $user['id'];
     }
 }

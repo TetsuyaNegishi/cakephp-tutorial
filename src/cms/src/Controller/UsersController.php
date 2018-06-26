@@ -13,6 +13,17 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['logout', 'add']);
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('ログアウトしました');
+        return $this->redirect($this->Auth->logout);
+    }
     /**
      * Index method
      *
